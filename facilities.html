@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facilities - Apollo Hospital</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #1D1B1E;
+            --accent: #F26F1E;
+            --card-radius: 16px;
+            --gap: 18px;
+            --shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            --glass: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* ==================================
+   HEADER
+================================== */
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 300;
+            color: white;
+            font-family: "Inter", sans-serif;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            padding: 8px;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==================================
+   HERO SECTION
+================================== */
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9zcGl0YWx8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+            border-radius: var(--card-radius);
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #e0e0e0;
+        }
+
+        /* ==================================
+   FACILITIES GRID
+================================== */
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        /* Card */
+        .card {
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            border-radius: var(--card-radius);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            gap: 16px;
+            height: 100%;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: pop 0.5s forwards;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-features {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+
+        .card-features li {
+            padding: 6px 0;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-features li i {
+            color: var(--accent);
+            font-size: 12px;
+        }
+
+        /* ==================================
+   SPECIALTY SECTIONS
+================================== */
+
+        .specialty-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2 span {
+            color: var(--accent);
+        }
+
+        .section-title p {
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .specialty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .specialty-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .specialty-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .specialty-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .specialty-name {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* ==================================
+   STATS SECTION
+================================== */
+
+        .stats-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--card-radius);
+            padding: 60px 20px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        /* ==================================
+   EMERGENCY SECTION
+================================== */
+
+        .emergency-section {
+            background: linear-gradient(135deg, rgba(242, 111, 30, 0.1) 0%, rgba(242, 111, 30, 0.2) 100%);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            margin: 60px 0;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .emergency-content {
+            flex: 1;
+        }
+
+        .emergency-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .emergency-title span {
+            color: var(--accent);
+        }
+
+        .emergency-contact {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+
+        .emergency-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-btn:hover {
+            background: #e05e1a;
+            transform: translateY(-2px);
+        }
+
+        .emergency-image {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 300px;
+            background: url('https://images.unsplash.com/photo-1584467735871-8db9ac8dcc13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZW1lcmdlbmN5JTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60') center/cover;
+        }
+
+        /* ==================================
+   FOOTER
+================================== */
+
+        .footer {
+            background: #000000;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-radius: var(--card-radius);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-column p, .footer-column a {
+            color: #b0b0b0;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #1a1a1a;
+            border-radius: 50%;
+            color: var(--accent);
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: #000000;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        /* Animation */
+        @keyframes pop {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ==================================
+   RESPONSIVE DESIGN
+================================== */
+
+        @media (max-width: 1024px) {
+            .facilities-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .title {
+                font-size: 36px;
+            }
+
+            .emergency-section {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .facilities-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 16px;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .header {
+                padding: 16px;
+                gap: 8px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .specialty-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 14px;
+                gap: 6px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .emergency-section {
+                padding: 20px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">APOLLO HOSPITAL</h1>
+            <div class="subtitle">World-Class Healthcare Facilities</div>
+            
+            <div class="nav-container">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="all">All Facilities</button>
+                    <button class="nav-tab" data-tab="clinical">Clinical</button>
+                    <button class="nav-tab" data-tab="diagnostic">Diagnostic</button>
+                    <button class="nav-tab" data-tab="support">Support</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>Our <span>Facilities</span></h1>
+            <p>Apollo Hospital offers state-of-the-art medical facilities with cutting-edge technology and world-class infrastructure to provide comprehensive healthcare services.</p>
+        </section>
+
+        <main class="facilities-grid" id="facilitiesGrid">
+            <!-- Facilities will be injected by JavaScript -->
+        </main>
+
+        <section class="specialty-section">
+            <div class="section-title">
+                <h2>Medical <span>Specialties</span></h2>
+                <p>Comprehensive healthcare across all major medical specialties</p>
+            </div>
+            <div class="specialty-grid">
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-heartbeat"></i></div>
+                    <div class="specialty-name">Cardiology</div>
+                </div>
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-brain"></i></div>
+                    <div class="specialty-name">Neurology</div>
+                </div>
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-bone"></i></div>
+                    <div class="specialty-name">Orthopedics</div>
+                </div>
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-baby"></i></div>
+                    <div class="specialty-name">Pediatrics</div>
+                </div>
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-lungs"></i></div>
+                    <div class="specialty-name">Pulmonology</div>
+                </div>
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-stethoscope"></i></div>
+                    <div class="specialty-name">Internal Medicine</div>
+                </div>
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-procedures"></i></div>
+                    <div class="specialty-name">General Surgery</div>
+                </div>
+                <div class="specialty-card">
+                    <div class="specialty-icon"><i class="fas fa-eye"></i></div>
+                    <div class="specialty-name">Ophthalmology</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="section-title">
+                <h2>Our <span>Impact</span></h2>
+                <p>Delivering excellence in healthcare for over four decades</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">70+</div>
+                    <div class="stat-text">Hospitals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-text">Beds</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5M+</div>
+                    <div class="stat-text">Patients Treated</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7,000+</div>
+                    <div class="stat-text">Doctors</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="emergency-section">
+            <div class="emergency-content">
+                <h2 class="emergency-title">24/7 <span>Emergency</span> Care</h2>
+                <p>Our emergency department is equipped to handle all medical emergencies with rapid response teams and state-of-the-art facilities.</p>
+                <div class="emergency-contact">+91 44 2829 3333</div>
+                <button class="emergency-btn">
+                    <i class="fas fa-phone-alt"></i>
+                    Emergency Contact
+                </button>
+            </div>
+            <div class="emergency-image"></div>
+        </section>
+    </div>
+
+    <script>
+        // Facilities data
+        const facilities = [
+            {
+                id: 1,
+                name: "Emergency & Trauma Care",
+                description: "24/7 emergency services with dedicated trauma care units and rapid response teams.",
+                icon: "fas fa-ambulance",
+                category: "clinical",
+                features: ["24/7 emergency care", "Trauma specialists", "Ambulance services", "Critical care units"]
+            },
+            {
+                id: 2,
+                name: "Advanced Operation Theaters",
+                description: "State-of-the-art operation theaters with laminar airflow and advanced monitoring systems.",
+                icon: "fas fa-procedures",
+                category: "clinical",
+                features: ["Laminar airflow", "Advanced monitoring", "Minimally invasive surgery", "Robotic surgery"]
+            },
+            {
+                id: 3,
+                name: "Intensive Care Units",
+                description: "Specialized ICUs for cardiac, neurological, pediatric, and surgical critical care.",
+                icon: "fas fa-bed",
+                category: "clinical",
+                features: ["Cardiac ICU", "Neurological ICU", "Pediatric ICU", "Surgical ICU"]
+            },
+            {
+                id: 4,
+                name: "Cardiac Catheterization Lab",
+                description: "Advanced cath lab for angioplasty, stenting, and other cardiac interventions.",
+                icon: "fas fa-heartbeat",
+                category: "clinical",
+                features: ["Angioplasty", "Stenting", "Electrophysiology studies", "Pacemaker implantation"]
+            },
+            {
+                id: 5,
+                name: "MRI & CT Scanning",
+                description: "High-resolution MRI and CT scanners for accurate diagnosis and treatment planning.",
+                icon: "fas fa-magnet",
+                category: "diagnostic",
+                features: ["3T MRI", "128-slice CT", "Digital imaging", "Expert radiologists"]
+            },
+            {
+                id: 6,
+                name: "Laboratory Services",
+                description: "Fully automated laboratory with advanced testing capabilities and rapid turnaround.",
+                icon: "fas fa-vial",
+                category: "diagnostic",
+                features: ["Hematology", "Biochemistry", "Microbiology", "Pathology"]
+            },
+            {
+                id: 7,
+                name: "Nuclear Medicine",
+                description: "Advanced nuclear medicine department for PET-CT and other specialized imaging.",
+                icon: "fas fa-atom",
+                category: "diagnostic",
+                features: ["PET-CT", "SPECT", "Radioisotope therapy", "Thyroid scanning"]
+            },
+            {
+                id: 8,
+                name: "Pharmacy",
+                description: "24/7 in-house pharmacy with wide range of medicines and expert pharmacists.",
+                icon: "fas fa-pills",
+                category: "support",
+                features: ["24/7 availability", "Wide medicine range", "Expert pharmacists", "Home delivery"]
+            },
+            {
+                id: 9,
+                name: "Patient Rooms",
+                description: "Comfortable patient rooms with modern amenities and attentive nursing care.",
+                icon: "fas fa-hotel",
+                category: "support",
+                features: ["Private rooms", "Attached bathrooms", "TV & WiFi", "Nursing care"]
+            },
+            {
+                id: 10,
+                name: "Cafeteria & Nutrition",
+                description: "Healthy and hygienic food options with specialized dietary plans for patients.",
+                icon: "fas fa-utensils",
+                category: "support",
+                features: ["Healthy meals", "Special diets", "Hygienic kitchen", "Room service"]
+            },
+            {
+                id: 11,
+                name: "Physiotherapy & Rehabilitation",
+                description: "Comprehensive physiotherapy services with modern equipment and expert therapists.",
+                icon: "fas fa-dumbbell",
+                category: "clinical",
+                features: ["Exercise therapy", "Electrotherapy", "Hydrotherapy", "Pain management"]
+            },
+            {
+                id: 12,
+                name: "Blood Bank",
+                description: "Fully equipped blood bank with storage facilities and 24/7 availability.",
+                icon: "fas fa-tint",
+                category: "support",
+                features: ["Blood storage", "Cross matching", "Component separation", "24/7 availability"]
+            }
+        ];
+
+        // DOM Elements
+        const facilitiesGrid = document.getElementById('facilitiesGrid');
+        const navTabs = document.querySelectorAll('.nav-tab');
+        let activeCategory = 'all';
+
+        // Create facility card
+        function createFacilityCard(facility, idx) {
+            const card = document.createElement('article');
+            card.className = 'card';
+            card.dataset.category = facility.category;
+            card.style.animationDelay = `${idx * 0.1}s`;
+
+            // Icon
+            const icon = document.createElement('div');
+            icon.className = 'card-icon';
+            icon.innerHTML = `<i class="${facility.icon}"></i>`;
+
+            // Title
+            const title = document.createElement('h3');
+            title.className = 'card-title';
+            title.textContent = facility.name;
+
+            // Description
+            const desc = document.createElement('p');
+            desc.className = 'card-desc';
+            desc.textContent = facility.description;
+
+            // Features
+            const features = document.createElement('ul');
+            features.className = 'card-features';
+
+            facility.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                features.appendChild(li);
+            });
+
+            // Assemble card
+            card.appendChild(icon);
+            card.appendChild(title);
+            card.appendChild(desc);
+            card.appendChild(features);
+
+            return card;
+        }
+
+        // Render facilities
+        function renderFacilities() {
+            facilitiesGrid.innerHTML = '';
+            
+            const filteredFacilities = activeCategory === 'all' 
+                ? facilities 
+                : facilities.filter(facility => facility.category === activeCategory);
+            
+            filteredFacilities.forEach((facility, index) => {
+                const card = createFacilityCard(facility, index);
+                facilitiesGrid.appendChild(card);
+            });
+        }
+
+        // Event Listeners for tabs
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                navTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update active category
+                activeCategory = tab.dataset.tab;
+                
+                // Re-render facilities
+                renderFacilities();
+            });
+        });
+
+        // Initialize
+        renderFacilities();
+    </script>
+</body>
+</html>

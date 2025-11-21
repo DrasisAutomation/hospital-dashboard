@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Calling - Apollo Hospital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #1D1B1E;
+            --accent: #F26F1E;
+            --urgent: #ff4757;
+            --medium: #ffa502;
+            --low: #2ed573;
+            --card-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .call-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .call-option {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--card-radius);
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            position: relative;
+        }
+
+        .call-option:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .call-option.urgent {
+            border-color: var(--urgent);
+        }
+
+        .call-option.medium {
+            border-color: var(--medium);
+        }
+
+        .call-option.low {
+            border-color: var(--low);
+        }
+
+        /* Glow effect styles */
+        .call-option.active {
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        .call-option.urgent.active {
+            box-shadow: 
+                0 0 20px rgba(255, 71, 87, 0.6),
+                0 0 40px rgba(255, 71, 87, 0.4),
+                0 0 60px rgba(255, 71, 87, 0.2);
+        }
+
+        .call-option.medium.active {
+            box-shadow: 
+                0 0 20px rgba(255, 165, 2, 0.6),
+                0 0 40px rgba(255, 165, 2, 0.4),
+                0 0 60px rgba(255, 165, 2, 0.2);
+        }
+
+        .call-option.low.active {
+            box-shadow: 
+                0 0 20px rgba(46, 213, 115, 0.6),
+                0 0 40px rgba(46, 213, 115, 0.4),
+                0 0 60px rgba(46, 213, 115, 0.2);
+        }
+
+        @keyframes glow {
+            from {
+                transform: translateY(-5px) scale(1.02);
+            }
+            to {
+                transform: translateY(-5px) scale(1.05);
+            }
+        }
+
+        .call-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .call-option.active .call-icon {
+            transform: scale(1.1);
+        }
+
+        .call-option.urgent .call-icon {
+            color: var(--urgent);
+        }
+
+        .call-option.medium .call-icon {
+            color: var(--medium);
+        }
+
+        .call-option.low .call-icon {
+            color: var(--low);
+        }
+
+        .call-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .call-desc {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .call-time {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .call-option.active .call-time {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* Status indicator */
+        .status-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .call-option.active .status-indicator {
+            background: #fff;
+            box-shadow: 0 0 10px #fff;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 36px;
+            }
+            
+            .call-options {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .call-option {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="call-options">
+            <div class="call-option urgent">
+                <div class="status-indicator"></div>
+                <div class="call-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="call-title">Emergency Assistance</h3>
+                <p class="call-desc">Critical medical attention required immediately</p>
+                <div class="call-time">Response: &lt; 2 minutes</div>
+            </div>
+
+            <div class="call-option medium">
+                <div class="status-indicator"></div>
+                <div class="call-icon">
+                    <i class="fas fa-hand-holding-medical"></i>
+                </div>
+                <h3 class="call-title">Medical Assistance</h3>
+                <p class="call-desc">Need medication, pain management, or medical procedure</p>
+                <div class="call-time">Response: 5-10 minutes</div>
+            </div>
+
+            <div class="call-option low">
+                <div class="status-indicator"></div>
+                <div class="call-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 class="call-title">General Assistance</h3>
+                <p class="call-desc">Need help with movement, food, or other non-urgent matters</p>
+                <div class="call-time">Response: 15-20 minutes</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click event listeners to all call options
+        document.querySelectorAll('.call-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Toggle the active class
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
